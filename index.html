@@ -1,0 +1,66 @@
+<DOCTYPE! HTML>
+<HTML>
+<head>
+ <meta charset="UTF-8">
+ <title>Rock Paper Scissors</title>
+</head>
+ <body>
+   <script>
+   let player=0;
+   let computer=0;
+    function computerPlay (){
+     let options= ["Rock", "Paper", "Scissors"];
+     let random= Math.floor(Math.random()*3);
+     return= options [random];
+     }
+    function playround (playerSelection, computerSelection){
+        playerSelection=playerSelection.toLowerCase();
+        computerSelection=computerSelection.toLowerCase();
+           if (playerSelection)==(computerSelection){
+              return ("Draw");
+    }   
+    else if ((playerSelection=="paper") && (computerSelection=="scissors"))
+    {
+        computer++;
+        return ("You Lose! Scissors beats Rock");
+    }
+     else if ((playerSelection=="paper") && (computerSelction=="rock"))
+    { 
+        player++;
+        return ("You Win! Paper beats Rock");
+    }
+    else if ((playerSelection=="rock") && (computerSelection=="paper"))
+    {
+        computer++; 
+        return ("You Lose! Paper beats Rock");
+    }
+    else if ((playerSelection=="rock") && (computerSelction=="scissors"))
+    {
+        player++;
+        return ("You Win! Rock beats Scsissors");
+    }
+    else if ((playerSelction=="scissors") && (computerSelection=="rock"))
+    {
+        computer++; 
+        return ("You Lose! Rock beats Scissors");
+    }
+    else if ((playerSelection=="scissors") && (computerSelection=="paper"))
+    {
+        player++; 
+        return ("You Win! Scissors beats Paper");
+    }
+}
+    function game(a,b){
+        for(i=0, i<5; i++)
+        a=promt("Enter your Move");
+        b=computerPlay;
+        console.log(playround(a,b));
+    }
+    (player>computer)?(console.log("Player wins!"))
+    :(player<computer)?(console.log("Computer wins!"))
+    :(player=computer)?(console.log("It´s a Draw"));
+
+
+   </script>
+ </body>
+</HTML>
