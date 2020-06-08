@@ -1,66 +1,119 @@
-<DOCTYPE! HTML>
-<HTML>
+<!doctype html>
+<html>
+
 <head>
- <meta charset="UTF-8">
- <title>Rock Paper Scissors</title>
+
+	<meta charset="UTF-8">
+
+	<style type="text/css">
+
+		body {
+			background: #212F3C;
+			color: #cccccc;
+		}
+
+		#container {
+			width: 100%;
+			margin: 0 auto;
+			text-align:center;
+		}
+
+		#buttons, #results, #displayWinner {
+			margin-top: 30px;
+		}
+
+		#displayWinner {
+			font-size: 2em;
+		}
+
+		h1 {
+			font-size: 2em;
+		}
+
+		button {
+			background: #2980B9;
+			border: 2px solid #17202A;
+			border-radius: 5%;
+			padding: 30px;
+			font-size:1.5em;
+			text-align: center;
+			text-decoration: none;
+			outline: none;
+		}
+
+	</style>
+
+	<title>Rock Paper Scissors!</title>
+
 </head>
- <body>
-   <script>
-   let player=0;
-   let computer=0;
-    function computerPlay (){
-     let options= ["Rock", "Paper", "Scissors"];
-     let random= Math.floor(Math.random()*3);
-     return= options [random];
-     }
-    function playround (playerSelection, computerSelection){
-        playerSelection=playerSelection.toLowerCase();
-        computerSelection=computerSelection.toLowerCase();
-           if (playerSelection)==(computerSelection){
-              return ("Draw");
-    }   
-    else if ((playerSelection=="paper") && (computerSelection=="scissors"))
-    {
-        computer++;
-        return ("You Lose! Scissors beats Rock");
-    }
-     else if ((playerSelection=="paper") && (computerSelction=="rock"))
-    { 
-        player++;
-        return ("You Win! Paper beats Rock");
-    }
-    else if ((playerSelection=="rock") && (computerSelection=="paper"))
-    {
-        computer++; 
-        return ("You Lose! Paper beats Rock");
-    }
-    else if ((playerSelection=="rock") && (computerSelction=="scissors"))
-    {
-        player++;
-        return ("You Win! Rock beats Scsissors");
-    }
-    else if ((playerSelction=="scissors") && (computerSelection=="rock"))
-    {
-        computer++; 
-        return ("You Lose! Rock beats Scissors");
-    }
-    else if ((playerSelection=="scissors") && (computerSelection=="paper"))
-    {
-        player++; 
-        return ("You Win! Scissors beats Paper");
-    }
-}
-    function game(a,b){
-        for(i=0, i<5; i++)
-        a=promt("Enter your Move");
-        b=computerPlay;
-        console.log(playround(a,b));
-    }
-    (player>computer)?(console.log("Player wins!"))
-    :(player<computer)?(console.log("Computer wins!"))
-    :(player=computer)?(console.log("It´s a Draw"));
 
+	<body>
 
-   </script>
- </body>
-</HTML>
+		<div id="container">
+
+			<div id="header"><h1>Make a selection. First to reach 5 points wins.</h1></div>
+			<div id="score">Player Score: 0 | Computer Score: 0 | Ties: 0</div>
+
+			<div id="buttons">
+
+				<button id="rock">Rock</button>
+				<button id="paper">Paper</button>
+				<button id="scissors">Scissors</button>
+
+			</div>
+
+			<div id="results"></div>
+			<div id="displayWinner"></div>
+
+		</div>
+		
+		<script>
+
+			let p1, p2;
+			let playerScore = 0, computerScore = 0, ties = 0;
+			let result;
+			let displayWinner = document.querySelector("#displayWinner");
+			const buttons = document.querySelectorAll("button");
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", playRound);
+			});
+
+			function computerChoice() {
+				let choice = ["rock","paper","scissors"];
+				return choice[Math.floor(Math.random()*3)];
+			}
+
+			function playRound() {
+				if (playerScore < 5 && computerScore < 5) {
+					p1 = this.id;
+					p2 = computerChoice();
+					let r = "rock", p = "paper", s = "scissors";
+					if (p1 == p2) {
+						result = "It's a tie! Try again!!!";
+						ties += 1;
+					}
+					else if ((p1 == r && p2 == s) || (p1 == p && p2 == r) || (p1 == s && p2 == p)) {
+						result = p1.charAt(0).toUpperCase() + p1.slice(1) + " beats " + p2 + "! You win this round!";
+						playerScore += 1;
+					}
+					else {
+						result = p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "! You lose this round!";
+						computerScore += 1;
+					}
+				}
+
+				document.querySelector("#results").textContent = "Computer picked " + p2 + ". You picked " + p1 + ". " + result;
+				document.querySelector("#score").textContent = "Player Score: " + playerScore + " | Computer Score: " + computerScore + " | Ties: "+ ties;
+
+				if (playerScore == 5) {
+					displayWinner.textContent = "You are the winner!!!";
+				}
+				if (computerScore == 5) {
+					displayWinner.textContent = "You have lost to the computer!";
+				}
+			}
+
+		</script>
+
+	</body>
